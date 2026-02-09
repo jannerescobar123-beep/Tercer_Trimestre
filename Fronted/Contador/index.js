@@ -14,7 +14,7 @@ function agregarNotas() {
     `<h3>${titulo}</h3>
     <p>${contenido}</p>
         <div class="acciones">
-            <span onclick="marcarImportante(this)">⭐</span>
+            <span onclick="marcarImportante(this)">★</span>
             <span onclick="eliminarNota(this)">🗑️</span>
             </div>`;
     document.getElementById("notas").appendChild(nota);
