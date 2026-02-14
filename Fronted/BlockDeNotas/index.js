@@ -1,6 +1,7 @@
 function agregarNotas() {
     const titulo = document.getElementById("titulo").value;
-    const contenido = document.getElementById("contenido").value;
+    const contenido = document.getElementById("contenido").value; 
+
 
     if (titulo === "" || contenido === "") {
         alert("llene los campos mk");
@@ -15,13 +16,13 @@ function agregarNotas() {
     <p>${contenido}</p>
         <div class="acciones">
             <span onclick="marcarImportante(this)">★</span>
+            
             <span onclick="eliminarNota(this)">🗑️</span>
             </div>`;
     document.getElementById("notas").appendChild(nota);
 
     document.getElementById("titulo").value = "";
     document.getElementById("contenido").value = "";
-
 }
 function marcarImportante(elemento) {
     const nota = elemento.parentElement.parentElement;
