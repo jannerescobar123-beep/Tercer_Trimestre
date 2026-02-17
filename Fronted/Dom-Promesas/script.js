@@ -57,7 +57,7 @@ btn.addEventListener("click", () => {
         return;
     }
 
-    const id = parseInt(idInput);
+    const id = parseInt(idInput); // Convertir a número
 
     spinner.style.display = "block";
     result.innerHTML = "Buscando usuario...";
@@ -75,5 +75,4 @@ btn.addEventListener("click", () => {
         .finally(() => {
             spinner.style.display = "none";
         });
-
 });
