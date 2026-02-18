@@ -1,37 +1,55 @@
-package Backend.Hotel;
+
 
 import java.util.HashMap;
+import java.util.Map;
 
-public class huesped {
-    private int NumeroDeNoches;
-    private double ValorPorNoche;
-    private HashMap<String, Integer> ConsumoAdicional = new HashMap<>();
+public class Huesped {
 
+    private int numeroDeNoches;
+    private double valorPorNoche;
+    private HashMap<String, Integer> consumoAdicional;
 
-    public huesped() {
-
+    public Huesped() {
+        consumoAdicional = new HashMap<>();
     }
-    public huesped(int NumeroDeNoches, double ValorPorNoche,HashMap<String, Integer> Mapa) {
-        this.NumeroDeNoches = NumeroDeNoches;
-        this.ValorPorNoche = ValorPorNoche;
-        this.ConsumoAdicional = Mapa;
+
+    public Huesped(int numeroDeNoches, double valorPorNoche) {
+        this.numeroDeNoches = numeroDeNoches;
+        this.valorPorNoche = valorPorNoche;
+        this.consumoAdicional = new HashMap<>();
     }
+
+    public void agregarConsumo(String servicio, int valor) {
+        consumoAdicional.put(servicio, valor);
+    }
+
+    public double calcularTotal() {
+        double totalConsumo = 0;
+
+        for (Map.Entry<String, Integer> entry : consumoAdicional.entrySet()) {
+            totalConsumo += entry.getValue();
+        }
+
+        return (numeroDeNoches * valorPorNoche) + totalConsumo;
+    }
+
     public int getNumeroDeNoches() {
-        return NumeroDeNoches;
+        return numeroDeNoches;
     }
+
     public void setNumeroDeNoches(int numeroDeNoches) {
-        NumeroDeNoches = numeroDeNoches;
+        this.numeroDeNoches = numeroDeNoches;
     }
+
     public double getValorPorNoche() {
-        return ValorPorNoche;
+        return valorPorNoche;
     }
+
     public void setValorPorNoche(double valorPorNoche) {
-        ValorPorNoche = valorPorNoche;
+        this.valorPorNoche = valorPorNoche;
     }
+
     public HashMap<String, Integer> getConsumoAdicional() {
-        return ConsumoAdicional;
-    }
-    public void setConsumoAdicional(HashMap<String, Integer> consumoAdicional) {
-        ConsumoAdicional = consumoAdicional;
+        return consumoAdicional;
     }
 }
