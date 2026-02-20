@@ -1,4 +1,4 @@
-package Backend.Hospital.src;
+
 import javax.swing.JOptionPane;
 
 public class Procesos {

@@ -1,7 +1,3 @@
-package Backend.Hotel;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 import javax.swing.JOptionPane;
 
