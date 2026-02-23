@@ -19,6 +19,7 @@ btnConsultar.addEventListener("click", async () => {
 
 });
 
+
 btnLimpiar.addEventListener("click", () => {
     clearUsers();
 });

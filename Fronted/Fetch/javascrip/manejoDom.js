@@ -4,9 +4,7 @@ export function printUsers(users) {
 
     container.innerHTML = users.map(user => {
 
-        const imageUrl = user.image && user.image.startsWith("http")
-            ? user.image
-            : "https://via.placeholder.com/300x250?text=No+Image";
+        const imageUrl = user.image && user.image.startsWith("http") ? user.image : "https://via.placeholder.com/300x250?text=No+Image";
 
         return `
             <article style="border:1px solid #ccc; padding:10px; margin:10px;">
