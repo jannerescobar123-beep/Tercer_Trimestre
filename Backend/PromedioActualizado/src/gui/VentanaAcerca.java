@@ -17,12 +17,12 @@ public class VentanaAcerca extends JDialog {
         JPanel panel = new JPanel(new GridLayout(4, 1, 5, 5));
         panel.setBorder(BorderFactory.createEmptyBorder(20, 30, 10, 30));
 
-        JLabel lblTitulo = new JLabel("Sistema de Promedios", SwingConstants.CENTER);
+        JLabel lblTitulo = new JLabel("Trabajo istema de Promedios", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 16));
 
-        JLabel lblVersion = new JLabel("Versión 1.0", SwingConstants.CENTER);
-        JLabel lblDesc    = new JLabel("Gestión de notas y promedios estudiantiles", SwingConstants.CENTER);
-        JLabel lblAutor   = new JLabel("Desarrollado en Java Swing", SwingConstants.CENTER);
+        JLabel lblVersion = new JLabel("siuuuuuuuu!", SwingConstants.CENTER);
+        JLabel lblDesc    = new JLabel("Gestión de notas y promedios de estudiantes", SwingConstants.CENTER);
+        JLabel lblAutor   = new JLabel("Desarrollado por Janner Escobar en Java Swing ", SwingConstants.CENTER);
         lblAutor.setForeground(Color.GRAY);
 
         panel.add(lblTitulo);
