@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Climas</title>
+  </head>
+  <body>
+    <header class="header">
+      <div>
+        <h1><strong>Climas de todo lado hptas</strong></h1>
+      </div>
+      <p class="subtitle">Consulte el clima de cualquier lugar</p>
+    </header>
+    <main class="main">
+      <form id="search-form">
+        <div class="search-container">
+          <input
+            type="text"
+            id="city-input"
+            placeholder="Ingrese el nombre de la ciudad"
+          />
+          <button type="submit" id="search-button">Buscar</button>
+        </div>
+      </form>
+      <div id="weather-result" class="weather-result"></div>
+    </main>
+    <script type="module" src="script/main.js"> </script>
+  </body>
+</html>
