@@ -1,41 +1,55 @@
 package gui;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class VentanaPrincipal extends JFrame {
+
     private static final long serialVersionUID = 1L;
 
     public VentanaPrincipal() {
         setTitle("Sistema de Promedios");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 400, 280);
-
-        JPanel panel = new JPanel(new BorderLayout(10, 20));
-        panel.setBorder(new EmptyBorder(20, 20, 20, 20));
-        setContentPane(panel);
+        setBounds(100, 100, 400, 300);
+        setLayout(new BorderLayout(10, 10));
 
         JLabel titulo = new JLabel("Bienvenido al Sistema de Promedios", SwingConstants.CENTER);
         titulo.setFont(new Font("Tahoma", Font.BOLD, 16));
-        panel.add(titulo, BorderLayout.NORTH);
+        add(titulo, BorderLayout.NORTH);
 
-        JPanel botones = new JPanel(new GridLayout(3, 1, 10, 10));
-        JButton btnPromedio = new JButton("Registrar promedio de estudiante");
-        JButton btnInfo     = new JButton("Ver información del programa");
-        JButton btnLista    = new JButton("Mostrar lista de estudiantes");
-        botones.add(btnPromedio);
-        botones.add(btnInfo);
-        botones.add(btnLista);
-        panel.add(botones, BorderLayout.CENTER);
+        JPanel panelBotones = new JPanel(new GridLayout(3, 1, 10, 10));
+        panelBotones.setBorder(BorderFactory.createEmptyBorder(10, 40, 20, 40));
 
-        btnPromedio.addActionListener(e -> new VentanaPromedio(this).setVisible(true));
+        JButton btnPromedio = new JButton("Registrar promedio");
+        JButton btnLista    = new JButton("Consultar lista de estudiantes");
+        JButton btnAcerca   = new JButton("Acerca de");
 
-        btnInfo.addActionListener(e -> JOptionPane.showMessageDialog(this,
-            "Sistema de promedios.\nHecha por Janner Andrey Carvajal Escobar \n" +
-            "Permite registrar notas y calcular promedios.",
-            "Información", JOptionPane.INFORMATION_MESSAGE));
+        panelBotones.add(btnPromedio);
+        panelBotones.add(btnLista);
+        panelBotones.add(btnAcerca);
+        add(panelBotones, BorderLayout.CENTER);
 
-        btnLista.addActionListener(e -> new VentanaInformacion(this).setVisible(true));
+        btnPromedio.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                VentanaPromedio vp = new VentanaPromedio(VentanaPrincipal.this);
+                vp.setVisible(true);
+            }
+        });
+
+        btnLista.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                VentanaInformacion vi = new VentanaInformacion(VentanaPrincipal.this);
+                vi.setVisible(true);
+            }
+        });
+
+        btnAcerca.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                VentanaAcerca va = new VentanaAcerca(VentanaPrincipal.this);
+                va.setVisible(true);
+            }
+        });
     }
 }

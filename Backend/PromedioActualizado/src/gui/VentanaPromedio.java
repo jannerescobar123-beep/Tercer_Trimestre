@@ -1,12 +1,15 @@
 package gui;
 
-import logica.Procesos;
 import entidad.Estudiante;
+import logica.Procesos;
+
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class VentanaPromedio extends JDialog {
+
 	private static final long serialVersionUID = 1L;
 
 	private JTextField txtNombre = new JTextField();
@@ -19,11 +22,12 @@ public class VentanaPromedio extends JDialog {
 	private JTextField txtEstado = new JTextField();
 
 	public VentanaPromedio(Frame owner) {
-		super(owner, "Calcular Promedio", true);
-		setBounds(150, 150, 420, 360);
+		super(owner, "Registrar Promedio", true);
+		setBounds(150, 150, 420, 380);
+		setLayout(new BorderLayout());
 
-		JPanel panel = new JPanel(new GridLayout(0, 2, 10, 10));
-		panel.setBorder(new EmptyBorder(20, 20, 10, 20));
+		JPanel panel = new JPanel(new GridLayout(8, 2, 8, 8));
+		panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
 
 		panel.add(new JLabel("Nombre:"));
 		panel.add(txtNombre);
@@ -45,56 +49,74 @@ public class VentanaPromedio extends JDialog {
 		txtPromedio.setEditable(false);
 		txtEstado.setEditable(false);
 
+		add(panel, BorderLayout.CENTER);
+
+		JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
 		JButton btnCalcular = new JButton("Calcular");
 		JButton btnGuardar = new JButton("Guardar");
 		JButton btnLimpiar = new JButton("Limpiar");
-
-		JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
 		panelBotones.add(btnCalcular);
 		panelBotones.add(btnGuardar);
 		panelBotones.add(btnLimpiar);
-
-		add(panel, BorderLayout.CENTER);
 		add(panelBotones, BorderLayout.SOUTH);
 
-		btnCalcular.addActionListener(e -> {
-			try {
-				double prom = (Double.parseDouble(txtNota1.getText().trim()) +
-						Double.parseDouble(txtNota2.getText().trim()) +
-						Double.parseDouble(txtNota3.getText().trim())) / 3;
-				txtPromedio.setText(String.format("%.2f", prom));
-				txtEstado.setText(prom >= 3.0 ? "Aprobado" : "Reprobado");
-			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(this, "Las notas deben ser números válidos.", "Error",
-						JOptionPane.ERROR_MESSAGE);
-			}
-		});
-
-		btnGuardar.addActionListener(e -> {
-			try {
-				if (txtNombre.getText().isBlank() || txtDocumento.getText().isBlank()
-						|| txtMateria.getText().isBlank()) {
-					JOptionPane.showMessageDialog(this, "Completa todos los campos.", "Advertencia",
-							JOptionPane.WARNING_MESSAGE);
-					return;
+		btnCalcular.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					double n1 = Double.parseDouble(txtNota1.getText().trim());
+					double n2 = Double.parseDouble(txtNota2.getText().trim());
+					double n3 = Double.parseDouble(txtNota3.getText().trim());
+					double prom = (n1 + n2 + n3) / 3;
+					txtPromedio.setText(String.format("%.2f", prom));
+					txtEstado.setText(prom >= 3.0 ? "Aprobado" : "Reprobado");
+				} catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(VentanaPromedio.this,
+							"Las notas deben ser números válidos.",
+							"Error", JOptionPane.ERROR_MESSAGE);
 				}
-				Estudiante est = Procesos.crearEstudiante(
-						txtNombre.getText().trim(), txtDocumento.getText().trim(), txtMateria.getText().trim(),
-						Double.parseDouble(txtNota1.getText().trim()),
-						Double.parseDouble(txtNota2.getText().trim()),
-						Double.parseDouble(txtNota3.getText().trim()));
-				JOptionPane.showMessageDialog(this,
-						"Guardado: " + est.getNombre() + "\nPromedio: " + String.format("%.2f", est.getPromedio())
-								+ " — " + est.getEstado(),
-						"Éxito", JOptionPane.INFORMATION_MESSAGE);
-				limpiar();
-			} catch (NumberFormatException ex) {
-				JOptionPane.showMessageDialog(this, "Las notas deben ser números válidos.", "Error",
-						JOptionPane.ERROR_MESSAGE);
 			}
 		});
 
-		btnLimpiar.addActionListener(e -> limpiar());
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String nombre = txtNombre.getText().trim();
+					String documento = txtDocumento.getText().trim();
+					String materia = txtMateria.getText().trim();
+
+					if (nombre.isEmpty() || documento.isEmpty() || materia.isEmpty()) {
+						JOptionPane.showMessageDialog(VentanaPromedio.this,
+								"Por favor completa todos los campos.",
+								"Campos vacíos", JOptionPane.WARNING_MESSAGE);
+						return;
+					}
+
+					double n1 = Double.parseDouble(txtNota1.getText().trim());
+					double n2 = Double.parseDouble(txtNota2.getText().trim());
+					double n3 = Double.parseDouble(txtNota3.getText().trim());
+
+					Estudiante est = Procesos.crearEstudiante(nombre, documento, materia, n1, n2, n3);
+
+					JOptionPane.showMessageDialog(VentanaPromedio.this,
+							"Estudiante guardado.\nPromedio: " + String.format("%.2f", est.getPromedio()) +
+									" — " + est.getEstado(),
+							"Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+					limpiar();
+
+				} catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(VentanaPromedio.this,
+							"Las notas deben ser números válidos.",
+							"Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+
+		btnLimpiar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limpiar();
+			}
+		});
 	}
 
 	private void limpiar() {
