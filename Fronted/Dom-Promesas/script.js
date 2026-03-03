@@ -37,9 +37,7 @@ function buscarUsuario(id) {
             } else {
                 reject("Usuario no encontrado");
             }
-
-        }, 2000);
-
+        }, 2000)
     });
 }
 
