@@ -4,6 +4,8 @@ import entidad.Estudiante;
 import logica.Procesos;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +22,20 @@ public class VentanaPromedio extends JDialog {
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
+
+	protected JTextComponent txtNota2;
+
+	protected JTextComponent txtNota1;
+
+	protected JTextComponent txtNota3;
+
+	protected JTextComponent txtDocumento;
+
+	protected JTextComponent txtMateria;
+
+	private JTextComponent txtPromedio;
+
+	private JTextComponent txtEstado;
 
 	public VentanaPromedio(Frame owner) {
 		super(owner, "Registrar Promedio", true);
