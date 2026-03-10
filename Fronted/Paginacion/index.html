@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>South Park API</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header>
+    <h1> South Park API</h1>
+  </header>
+
+  <div class="controles">
+    <div class="control">
+      <label>Categoría</label>
+      <select id="selector-endpoint">
+        <option value="characters">Personajes</option>
+        <option value="episodes">Episodios</option>
+        <option value="families">Familias</option>
+        <option value="locations">Ubicaciones</option>
+      </select>
+    </div>
+    <div class="control">
+      <label>Por página</label>
+      <select id="selector-limite">
+        <option value="5">5</option>
+        <option value="10" selected>10</option>
+        <option value="20">20</option>
+      </select>
+    </div>
+    <button id="boton-buscar"> Consultar</button>
+  </div>
+
+  <main>
+    <div id="cargador" style="display:none">
+      <div class="spinner"></div>
+      <p>Cargando...</p>
+    </div>
+
+    <div id="caja-error" style="display:none">
+      <p id="mensaje-error"></p>
+      <button id="boton-reintentar">Reintentar</button>
+    </div>
+
+    <div id="grilla-tarjetas"></div>
+
+    <div class="paginacion">
+      <p id="info-pagina"></p>
+      <div id="controles-paginacion"></div>
+    </div>
+  </main>
+  <script type="module" src="script/main.js"></script>
+</body>
+</html>
