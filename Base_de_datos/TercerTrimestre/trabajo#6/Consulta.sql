@@ -13,7 +13,7 @@ PRIMARY KEY (identificador)
 ) ENGINE=INNODB;
 
 -- ver todo lo que contiene la tabla
-SELECT * FROM estacion
+SELECT * FROM estacion;
 
 INSERT INTO estacion (identificador, latitud, longitud, altitud) VALUES
 (1, '4.609710', '-74.081750', 2640),
@@ -104,5 +104,57 @@ WHERE identificador = 2;
 -- Realice mínimo 10 consultas a la base meteo, 
 -- donde indique que hace la consulta y luego el script correspondiente
 
+-- ----- 1 -------
+-- Mostrar todas las estaciones registradas
+SELECT * FROM estacion;
 
+-- ----- 2 -------
+-- Mostrar todas las muestras registradas
+SELECT * FROM muestra;
+
+-- ----- 3 -------
+-- Mostrar las fechas y temperaturas máximas registradas
+SELECT fecha, temperaturamaxima
+FROM muestra;
+
+-- ----- 4 -------
+-- Mostrar las muestras donde la temperatura máxima sea mayor a 30 grados
+SELECT *
+FROM muestra
+WHERE temperaturamaxima > 30;
+
+-- ----- 5 -------
+-- Mostrar las muestras donde hubo precipitaciones
+SELECT *
+FROM muestra
+WHERE precipitaciones > 0;
+
+-- ----- 6 -------
+-- Mostrar las muestras de la estación 2
+SELECT *
+FROM muestra
+WHERE identificadorestacion = 2;
+
+-- ----- 7 -------
+-- Mostrar las temperaturas mínimas y máximas registradas
+SELECT temperaturaminima, temperaturamaxima
+FROM muestra;
+
+-- ----- 8 -------
+-- Mostrar las muestras ordenadas por temperatura máxima de mayor a menor
+SELECT *
+FROM muestra
+ORDER BY temperaturamaxima DESC;
+
+-- ----- 9 -------
+-- Contar cuántas muestras hay registradas
+SELECT COUNT(*) AS total_muestras
+FROM muestra;
+
+-- ----- 10 -------
+-- Mostrar las estaciones junto con sus datos de muestra usando JOIN
+SELECT estacion.identificador, estacion.latitud, estacion.longitud, muestra.fecha, muestra.temperaturamaxima
+FROM estacion
+INNER JOIN muestra
+ON estacion.identificador = muestra.identificadorestacion;
 
