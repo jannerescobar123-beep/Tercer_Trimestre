@@ -82,14 +82,34 @@ CREATE TABLE emails (
      ON UPDATE NO ACTION
  ) ENGINE=InnoDB;
  
- INSERT INTO emails (correo, idPersona) VALUES
- ('ana@correo.com', 1),
- ('bertulio@correo.com', 2),
- ('carlos@correo.com', 3);
- -- Intente en elemininar a la persona Ana
- DELETE FROM personas WHERE `personas`.`idPersona` = 1
- 
--- insertamos datos
+-- se insertan datos de prueba en la tabla emails
+INSERT INTO emails (correo, idPersona) VALUES
+('ana@correo.com', 1),
+('bertulio@correo.com', 2),
+('carlos@correo.com', 3);
+
+-- se consultan los datos para verificar la inserción
+SELECT * FROM emails;
+
+-- se intenta eliminar la persona Ana
+DELETE FROM personas WHERE idPersona = 1;
+
+--MySQL genera un error porque existe una relación con la tabla emails
+-- esto ocurre porque NO ACTION no permite eliminar registros que están relacionados
 
 
+-- CASCADE sirve para que cuando se elimine o actualice un registro de la tabla principal,
+-- los registros relacionados también se eliminen o actualicen automáticamente.
+
+-- SET NULL se usa cuando se quiere conservar el registro relacionado,
+-- pero quitando la relación con la tabla principal dejando el campo en NULL.
+
+-- RESTRICT y NO ACTION evitan que se eliminen o modifiquen registros
+-- si hay datos relacionados, para no dañar la integridad de la base de datos.
+
+-- MySQL no soporta SET DEFAULT en claves foráneas,
+-- por lo que no puede asignar automáticamente un valor por defecto.
+
+-- ENGINE=InnoDB es el motor que permite usar claves foráneas
+-- y mantener la integridad referencial.
 
