@@ -4,8 +4,7 @@ import javax.swing.*;
 
 public class VentanaPrincipal extends JFrame implements ActionListener {
 
-   
-	JPanel miPanel;
+    JPanel miPanel;
     JLabel lblNombre, lblNota1, lblNota2, lblNota3, lblResultado, lblMensaje;
     JTextField txtNombre, txtNota1, txtNota2, txtNota3, txtResultado, txtMensaje;
     JButton btnCalcular, btnLimpiar;
