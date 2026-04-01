@@ -13,18 +13,17 @@ import java.awt.*;
 import java.util.List;
 
 // Panel para el usuario normal (rol = 'usuario')
-// Permite: ver catálogo, realizar compra con descuento y ver sus compras
 public class VentanaUsuario extends JFrame {
 
     private final Coordinador coordinador;
     private ClienteDTO clienteActual;
 
-    // Campos del formulario de compra (según el PDF)
+    // Campos del formulario de compra 
     private JTextField txtNombre, txtApellido, txtEdad, txtTelefono;
     private JTextField txtProducto, txtValorUnitario, txtCantidad;
     private JComboBox<String> cboTipo;
 
-    // Etiquetas de resultado (según el PDF)
+    // Etiquetas de resultado 
     private JLabel lblResNombre, lblResTipo, lblResTotalCompra;
     private JLabel lblResDescuento, lblResPrecioReal;
 
@@ -32,7 +31,7 @@ public class VentanaUsuario extends JFrame {
     private DefaultTableModel modeloMisCompras;
 
     public VentanaUsuario(Coordinador coordinador) {
-        this.coordinador  = coordinador;
+        this.coordinador = coordinador;
         this.clienteActual = coordinador.obtenerClientePorUsuario(
                 coordinador.getSesion().getId());
         initUI();
@@ -64,7 +63,8 @@ public class VentanaUsuario extends JFrame {
                 : coordinador.getSesion().getUsername();
         JLabel lblUser = new JLabel("👤 " + nombreMostrar + "   ");
         lblUser.setForeground(new Color(0xCCDDFF));
-        der.add(lblUser); der.add(btnLogout);
+        der.add(lblUser);
+        der.add(btnLogout);
         barra.add(lblTitulo, BorderLayout.WEST);
         barra.add(der, BorderLayout.EAST);
 
@@ -72,7 +72,7 @@ public class VentanaUsuario extends JFrame {
         JTabbedPane tabs = new JTabbedPane();
         tabs.setFont(new Font("SansSerif", Font.PLAIN, 13));
         tabs.addTab("Realizar Compra", tabCompra());
-        tabs.addTab("Mis Compras",     tabMisCompras());
+        tabs.addTab("Mis Compras", tabMisCompras());
 
         // Aviso si no tiene perfil de cliente
         if (clienteActual == null) {
@@ -81,33 +81,33 @@ public class VentanaUsuario extends JFrame {
             JLabel lbl = new JLabel("⚠  Sin perfil de cliente. Contacta al administrador.");
             lbl.setForeground(new Color(0x664D00));
             aviso.add(lbl);
-            add(barra,  BorderLayout.NORTH);
-            add(tabs,   BorderLayout.CENTER);
-            add(aviso,  BorderLayout.SOUTH);
+            add(barra, BorderLayout.NORTH);
+            add(tabs, BorderLayout.CENTER);
+            add(aviso, BorderLayout.SOUTH);
         } else {
-            add(barra,  BorderLayout.NORTH);
-            add(tabs,   BorderLayout.CENTER);
+            add(barra, BorderLayout.NORTH);
+            add(tabs, BorderLayout.CENTER);
         }
     }
 
-    // ── PESTAÑA REALIZAR COMPRA (formulario del PDF) ──────
+    // ── PESTAÑA REALIZAR COMPRA 
     private JPanel tabCompra() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBorder(new EmptyBorder(12, 14, 12, 14));
         panel.setBackground(Color.WHITE);
 
-        // ── Sección datos del usuario ─────────────────────
+        // ── Sección datos del usuario 
         JPanel panelDatos = new JPanel(new GridLayout(3, 4, 8, 8));
         panelDatos.setBackground(Color.WHITE);
         panelDatos.setBorder(new TitledBorder("Datos del Usuario"));
 
-        txtNombre       = new JTextField();
-        txtApellido     = new JTextField();
-        txtEdad         = new JTextField();
-        txtTelefono     = new JTextField();
+        txtNombre = new JTextField();
+        txtApellido = new JTextField();
+        txtEdad = new JTextField();
+        txtTelefono = new JTextField();
 
         // Tipo ENUM: A, B, C o vacío (sin descuento)
-        cboTipo = new JComboBox<>(new String[]{"(Sin tipo)", "A", "B", "C"});
+        cboTipo = new JComboBox<>(new String[] { "(Sin tipo)", "A", "B", "C" });
 
         // Pre-cargar datos del cliente si ya existe
         if (clienteActual != null) {
@@ -119,25 +119,32 @@ public class VentanaUsuario extends JFrame {
             cboTipo.setSelectedItem(tipo != null ? tipo : "(Sin tipo)");
         }
 
-        panelDatos.add(new JLabel("Nombre:")); panelDatos.add(txtNombre);
-        panelDatos.add(new JLabel("Apellido:")); panelDatos.add(txtApellido);
-        panelDatos.add(new JLabel("Edad:")); panelDatos.add(txtEdad);
-        panelDatos.add(new JLabel("Teléfono:")); panelDatos.add(txtTelefono);
-        panelDatos.add(new JLabel("Tipo (A/B/C):")); panelDatos.add(cboTipo);
-        panelDatos.add(new JLabel("")); panelDatos.add(new JLabel(""));
+        panelDatos.add(new JLabel("Nombre:"));
+        panelDatos.add(txtNombre);
+        panelDatos.add(new JLabel("Apellido:"));
+        panelDatos.add(txtApellido);
+        panelDatos.add(new JLabel("Edad:"));
+        panelDatos.add(txtEdad);
+        panelDatos.add(new JLabel("Teléfono:"));
+        panelDatos.add(txtTelefono);
+        panelDatos.add(new JLabel("Tipo (A/B/C):"));
+        panelDatos.add(cboTipo);
+        panelDatos.add(new JLabel(""));
+        panelDatos.add(new JLabel(""));
 
-        // ── Sección datos del producto ────────────────────
+        // ── Sección datos del producto 
         JPanel panelProd = new JPanel(new GridLayout(2, 4, 8, 8));
         panelProd.setBackground(Color.WHITE);
         panelProd.setBorder(new TitledBorder("Datos del Producto"));
 
-        txtProducto      = new JTextField();
+        txtProducto = new JTextField();
         txtValorUnitario = new JTextField();
-        txtCantidad      = new JTextField();
+        txtCantidad = new JTextField();
 
         // Selector de producto del inventario
         JComboBox<ProductoDTO> cboProd = new JComboBox<>();
-        for (ProductoDTO p : coordinador.obtenerProductosDisponibles()) cboProd.addItem(p);
+        for (ProductoDTO p : coordinador.obtenerProductosDisponibles())
+            cboProd.addItem(p);
         cboProd.addActionListener(e -> {
             ProductoDTO sel = (ProductoDTO) cboProd.getSelectedItem();
             if (sel != null) {
@@ -152,18 +159,22 @@ public class VentanaUsuario extends JFrame {
             txtValorUnitario.setText(String.valueOf(p.getPrecio()));
         }
 
-        panelProd.add(new JLabel("Seleccionar producto:")); panelProd.add(cboProd);
-        panelProd.add(new JLabel("Valor unitario:")); panelProd.add(txtValorUnitario);
-        panelProd.add(new JLabel("Nombre producto:")); panelProd.add(txtProducto);
-        panelProd.add(new JLabel("Cantidad:")); panelProd.add(txtCantidad);
+        panelProd.add(new JLabel("Seleccionar producto:"));
+        panelProd.add(cboProd);
+        panelProd.add(new JLabel("Valor unitario:"));
+        panelProd.add(txtValorUnitario);
+        panelProd.add(new JLabel("Nombre producto:"));
+        panelProd.add(txtProducto);
+        panelProd.add(new JLabel("Cantidad:"));
+        panelProd.add(txtCantidad);
 
-        // ── Botones (según el PDF) ────────────────────────
+        // ── Botones 
         JPanel panelBtns = new JPanel(new FlowLayout(FlowLayout.CENTER, 16, 8));
         panelBtns.setBackground(Color.WHITE);
 
-        JButton btnComprar  = new JButton("Realizar Compra");
-        JButton btnMostrar  = new JButton("Mostrar Datos del Usuario");
-        JButton btnLimpiar  = new JButton("Limpiar");
+        JButton btnComprar = new JButton("Realizar Compra");
+        JButton btnMostrar = new JButton("Mostrar Datos del Usuario");
+        JButton btnLimpiar = new JButton("Limpiar");
 
         btnComprar.setBackground(new Color(0x1A7A4A));
         btnComprar.setForeground(Color.WHITE);
@@ -178,31 +189,38 @@ public class VentanaUsuario extends JFrame {
         btnLimpiar.setForeground(Color.WHITE);
         btnLimpiar.setFocusPainted(false);
 
-        panelBtns.add(btnComprar); panelBtns.add(btnMostrar); panelBtns.add(btnLimpiar);
+        panelBtns.add(btnComprar);
+        panelBtns.add(btnMostrar);
+        panelBtns.add(btnLimpiar);
 
-        // ── Etiquetas de resultado (según el PDF) ─────────
+        // ── Etiquetas de resultado 
         JPanel panelRes = new JPanel(new GridLayout(5, 2, 8, 6));
         panelRes.setBackground(new Color(0xF5F5FF));
         panelRes.setBorder(new TitledBorder("Resultado de la Compra"));
 
-        lblResNombre     = new JLabel("—");
-        lblResTipo       = new JLabel("—");
-        lblResTotalCompra= new JLabel("—");
-        lblResDescuento  = new JLabel("—");
+        lblResNombre = new JLabel("—");
+        lblResTipo = new JLabel("—");
+        lblResTotalCompra = new JLabel("—");
+        lblResDescuento = new JLabel("—");
         lblResPrecioReal = new JLabel("—");
 
         lblResPrecioReal.setFont(new Font("SansSerif", Font.BOLD, 13));
         lblResPrecioReal.setForeground(new Color(0x1A7A4A));
 
-        panelRes.add(new JLabel("Usuario:"));       panelRes.add(lblResNombre);
-        panelRes.add(new JLabel("Tipo:"));          panelRes.add(lblResTipo);
-        panelRes.add(new JLabel("Precio total:"));  panelRes.add(lblResTotalCompra);
-        panelRes.add(new JLabel("Descuento:"));     panelRes.add(lblResDescuento);
-        panelRes.add(new JLabel("Precio real:"));   panelRes.add(lblResPrecioReal);
+        panelRes.add(new JLabel("Usuario:"));
+        panelRes.add(lblResNombre);
+        panelRes.add(new JLabel("Tipo:"));
+        panelRes.add(lblResTipo);
+        panelRes.add(new JLabel("Precio total:"));
+        panelRes.add(lblResTotalCompra);
+        panelRes.add(new JLabel("Descuento:"));
+        panelRes.add(lblResDescuento);
+        panelRes.add(new JLabel("Precio real:"));
+        panelRes.add(lblResPrecioReal);
 
-        //Acciones de los botones
 
-        // Realizar Compra: calcula descuento y muestra en etiquetas
+        // Acciones de los botones
+        // calcula descuento y muestra en etiquetas
         btnComprar.addActionListener(e -> {
             if (clienteActual == null) {
                 JOptionPane.showMessageDialog(this, "Necesitas perfil de cliente para comprar.");
@@ -214,8 +232,9 @@ public class VentanaUsuario extends JFrame {
                 return;
             }
             int cantidad;
-            try { cantidad = Integer.parseInt(txtCantidad.getText().trim()); }
-            catch (NumberFormatException ex) {
+            try {
+                cantidad = Integer.parseInt(txtCantidad.getText().trim());
+            } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "La cantidad debe ser un número.");
                 return;
             }
@@ -223,30 +242,32 @@ public class VentanaUsuario extends JFrame {
             // Construir ClienteDTO con el tipo seleccionado en el combo
             String tipoSel = (String) cboTipo.getSelectedItem();
             ClienteDTO cliente = new ClienteDTO(
-                clienteActual.getId(),
-                txtNombre.getText().trim(),
-                txtApellido.getText().trim(),
-                clienteActual.getEdad(),
-                txtTelefono.getText().trim(),
-                tipoSel.equals("(Sin tipo)") ? null : tipoSel,
-                clienteActual.getEmail()
-            );
+                    clienteActual.getId(),
+                    txtNombre.getText().trim(),
+                    txtApellido.getText().trim(),
+                    clienteActual.getEdad(),
+                    txtTelefono.getText().trim(),
+                    tipoSel.equals("(Sin tipo)") ? null : tipoSel,
+                    clienteActual.getEmail());
 
             // Obtener producto seleccionado del combo
             ProductoDTO prod = (ProductoDTO) cboProd.getSelectedItem();
-            if (prod == null) { JOptionPane.showMessageDialog(this, "Selecciona un producto."); return; }
+            if (prod == null) {
+                JOptionPane.showMessageDialog(this, "Selecciona un producto.");
+                return;
+            }
 
             // Procesa la venta con descuento en LogicaDeVenta
             ComprasDTO resultado = coordinador.realizarCompraConDescuento(cliente, prod, cantidad);
 
             if (resultado == null) {
                 JOptionPane.showMessageDialog(this,
-                    "Error: stock insuficiente o cantidad inválida.", "Error",
-                    JOptionPane.ERROR_MESSAGE);
+                        "Error: stock insuficiente o cantidad inválida.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            // Mostrar resultados en las etiquetas (como pide el PDF)
+            // Mostrar resultados en las etiquetas
             lblResNombre.setText(cliente.getNombre() + " " + cliente.getApellido());
             lblResTipo.setText(tipoSel.equals("(Sin tipo)") ? "Sin tipo" : "Tipo " + tipoSel);
 
@@ -259,7 +280,7 @@ public class VentanaUsuario extends JFrame {
             } else {
                 double pct = cliente.getPorcentajeDescuento() * 100;
                 lblResDescuento.setText("- $" + String.format("%,.0f", resultado.getDescuento())
-                    + " (" + (int)pct + "%)");
+                        + " (" + (int) pct + "%)");
                 lblResDescuento.setForeground(new Color(0xCC2200));
             }
 
@@ -272,32 +293,37 @@ public class VentanaUsuario extends JFrame {
         btnMostrar.addActionListener(e -> {
             if (txtNombre.getText().trim().isEmpty() && txtApellido.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(this,
-                    "Los campos se encuentran vacíos.", "Aviso",
-                    JOptionPane.WARNING_MESSAGE);
+                        "Los campos se encuentran vacíos.", "Aviso",
+                        JOptionPane.WARNING_MESSAGE);
                 return;
             }
             String tipo = (String) cboTipo.getSelectedItem();
             JOptionPane.showMessageDialog(this,
-                "Nombre: "    + txtNombre.getText() + " " + txtApellido.getText() + "\n" +
-                "Edad: "      + txtEdad.getText() + "\n" +
-                "Teléfono: "  + txtTelefono.getText() + "\n" +
-                "Tipo: "      + (tipo.equals("(Sin tipo)") ? "Sin tipo asignado" : tipo),
-                "Datos del Usuario", JOptionPane.INFORMATION_MESSAGE);
+                    "Nombre: " + txtNombre.getText() + " " + txtApellido.getText() + "\n" +
+                            "Edad: " + txtEdad.getText() + "\n" +
+                            "Teléfono: " + txtTelefono.getText() + "\n" +
+                            "Tipo: " + (tipo.equals("(Sin tipo)") ? "Sin tipo asignado" : tipo),
+                    "Datos del Usuario", JOptionPane.INFORMATION_MESSAGE);
         });
 
         // Limpiar: limpia formulario y etiquetas
         btnLimpiar.addActionListener(e -> {
-            txtNombre.setText(""); txtApellido.setText("");
-            txtEdad.setText(""); txtTelefono.setText("");
-            txtProducto.setText(""); txtValorUnitario.setText("");
+            txtNombre.setText("");
+            txtApellido.setText("");
+            txtEdad.setText("");
+            txtTelefono.setText("");
+            txtProducto.setText("");
+            txtValorUnitario.setText("");
             txtCantidad.setText("");
             cboTipo.setSelectedIndex(0);
-            lblResNombre.setText("—"); lblResTipo.setText("—");
-            lblResTotalCompra.setText("—"); lblResDescuento.setText("—");
+            lblResNombre.setText("—");
+            lblResTipo.setText("—");
+            lblResTotalCompra.setText("—");
+            lblResDescuento.setText("—");
             lblResPrecioReal.setText("—");
         });
 
-        //Armar el panel completo 
+        // Armar el panel completo
         JPanel centro = new JPanel();
         centro.setLayout(new BoxLayout(centro, BoxLayout.Y_AXIS));
         centro.setBackground(Color.WHITE);
@@ -313,15 +339,17 @@ public class VentanaUsuario extends JFrame {
         return panel;
     }
 
-    //PESTAÑA MIS COMPRAS
+    // PESTAÑA MIS COMPRAS
     private JPanel tabMisCompras() {
         JPanel panel = new JPanel(new BorderLayout(0, 8));
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         panel.setBackground(Color.WHITE);
 
         modeloMisCompras = new DefaultTableModel(
-            new String[]{"#","Producto","Cant.","Total sin desc.","Descuento","Total final"}, 0) {
-            public boolean isCellEditable(int r, int c) { return false; }
+                new String[] { "#", "Producto", "Cant.", "Total sin desc.", "Descuento", "Total final" }, 0) {
+            public boolean isCellEditable(int r, int c) {
+                return false;
+            }
         };
         JTable tabla = new JTable(modeloMisCompras);
         tabla.setRowHeight(26);
@@ -330,24 +358,27 @@ public class VentanaUsuario extends JFrame {
         JButton btnRefresh = new JButton("Actualizar");
         btnRefresh.addActionListener(e -> cargarMisCompras());
 
-        panel.add(btnRefresh,                   BorderLayout.NORTH);
-        panel.add(new JScrollPane(tabla),        BorderLayout.CENTER);
+        panel.add(btnRefresh, BorderLayout.NORTH);
+        panel.add(new JScrollPane(tabla), BorderLayout.CENTER);
         return panel;
     }
 
     // CARGA DE DATOS
-    public void cargarDatos()  { cargarMisCompras(); }
+    public void cargarDatos() {
+        cargarMisCompras();
+    }
 
     private void cargarMisCompras() {
         modeloMisCompras.setRowCount(0);
-        if (clienteActual == null) return;
+        if (clienteActual == null)
+            return;
         List<ComprasDTO> compras = coordinador.obtenerComprasPorCliente(clienteActual.getId());
         for (ComprasDTO c : compras)
-            modeloMisCompras.addRow(new Object[]{
-                c.getId(), c.getNombreProducto(), c.getCantidad(),
-                "$" + String.format("%,.0f", c.getTotalSinDesc()),
-                "$" + String.format("%,.0f", c.getDescuento()),
-                "$" + String.format("%,.0f", c.getTotalFinal())});
+            modeloMisCompras.addRow(new Object[] {
+                    c.getId(), c.getNombreProducto(), c.getCantidad(),
+                    "$" + String.format("%,.0f", c.getTotalSinDesc()),
+                    "$" + String.format("%,.0f", c.getDescuento()),
+                    "$" + String.format("%,.0f", c.getTotalFinal()) });
     }
 
     private void cerrarSesion() {

@@ -7,13 +7,13 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 // Primera ventana que aparece al abrir la app
-// Verifica credenciales y redirige según el rol
+// se dirige dependiento el rol
 public class VentanaLogin extends JFrame {
 
     private final Coordinador coordinador;
-    private JTextField     txtUsuario;
+    private JTextField txtUsuario;
     private JPasswordField txtPassword;
-    private JLabel         lblError;
+    private JLabel lblError;
 
     public VentanaLogin(Coordinador coordinador) {
         this.coordinador = coordinador;
@@ -95,7 +95,7 @@ public class VentanaLogin extends JFrame {
         lblError.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(lblError);
 
-        // Hint con credenciales de prueba
+
         panel.add(Box.createVerticalStrut(14));
         JLabel hint = new JLabel("<html><center><font color='#999' size='2'>" +
                 "admin/admin123 &nbsp;|&nbsp; juan/user123</font></center></html>",
