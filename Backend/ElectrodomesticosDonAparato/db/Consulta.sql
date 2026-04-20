@@ -81,4 +81,4 @@ INSERT INTO clientes (nombre, apellido, edad, telefono, tipo, email, id_usuario)
   
   SELECT * FROM productos;
 
-SELECT * FROM usuarios
+SELECT * FtallerrepasoclientesROM usuarios
